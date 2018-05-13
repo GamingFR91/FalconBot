@@ -4,7 +4,7 @@ There is also a **Music Module**, **Fortnite Tracker (WIP)** & **Custom Emotes (
 
 # Get Started
 
-[https://nodejs.org/en/](Node JS) & npm is required
+[https://nodejs.org/en](Node JS) & npm is required
 
 Clone this repository
 
@@ -22,11 +22,11 @@ open **botconfig.json** and you should see this:
     "fortniteApiKey": "YOUR_FORTNITE_TRACKER_KEY"
 }
 ```
-**"token"** line need a **Discord Token ID** [https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token]((see this tutorial "How to get a discord bot token"))
+**"token"** line need a **Discord Token ID** [https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token](see this tutorial "How to get a discord bot token")
 
-**"twitchClientID** is needed to make stream notifications works [https://dev.twitch.tv/docs/v5/]((check the twitch dev documentation))
+**"twitchClientID** is needed to make stream notifications works [https://dev.twitch.tv/docs/v5](check the twitch dev documentation)
 
-**fortniteApiKey** is needed to make the Fortnite Tracker module works [https://fortnitetracker.com/site-api]((get a API Key here))
+**fortniteApiKey** is needed to make the Fortnite Tracker module works [https://fortnitetracker.com/site-api](get a API Key here)
 
 now open **index.js** and go **to line 237**
 
@@ -39,7 +39,7 @@ now open **index.js** and go **to line 237**
       });
 ```
 
-**youtubeKey** is needed to make the Music Module works [https://developers.google.com/youtube/registering_an_application]((get a Youtube API Key here))
+**youtubeKey** is needed to make the Music Module works [https://developers.google.com/youtube/registering_an_application](get a Youtube API Key here)
 
 when everything is done, you can run this command on your bot folder
 
