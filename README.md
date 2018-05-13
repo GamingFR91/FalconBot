@@ -57,3 +57,77 @@ in order to invite your bot, insert your **Discord bot client ID** (and not toke
 ```
 https://discordapp.com/api/oauth2/authorize?client_id=INSERT_CLIENT_ID_HERE&scope=bot&permissions=1
 ```
+
+# Commands
+
+Here the full list of the commands available in FalconBot:
+
+## Streaming notifications module
+
+```
+!liste : List all the streamers that FalconBot need to watch for notifications.
+
+!ajoute streamername : Add a streamer to the list.
+
+!degage streamername : delete a streamer from the list.
+
+!configure : Command that handle all the configuration for this module
+ - !configure channel add : Add a text channel to the list of channel that FalconBot need to do streaming notifications,
+ - !configure channel remove : Remove a text channel from the list of channel,
+ - !configure prefix ? : Changing prefix to ! from ?
+ - !configure role roleName : Role that can use the streaming module,
+ - !configure list : List the actual configuration,
+ ```
+ 
+ ## Music Module
+ 
+ ```
+ ?play <link to Youtube Video or Keywords>: Join your voice channel and play the actual youtube video (adding it to the queue).
+ 
+ ?search <Keywords>: search for videos.
+ 
+ ?skip number: Skip some number of songs. Will skip 1 song if a number is not specified.
+ 
+ ?loop : loop the current video.
+ 
+ ?queue: Display the current queue.
+ 
+ ?pause: Pause music playback.
+ 
+ ?resume: Resume music playback
+ 
+ ?volume: Adjust the playback volume between 1 and 200
+ 
+ ?leave: Clears the song queue and leaves the channel.
+ 
+ ?clearqueue : Clears the song queue
+ ```
+ 
+ ## Fortnite Tracker Module (WIP)
+ 
+ ```
+ !fortnite global username : show global stats about a player
+ 
+ More to come (for solo/duo/squad queue, more fancy stats display ...)
+ ```
+ 
+ ## Custom Emotes (Very WIP)
+ 
+ ```
+ !emotes create nameofanemote : (need to attach an image with this message) create a new emote (need to restart FalconBot for now)
+ 
+ !nameofanemote : display the actual emote
+ 
+ Still need works and testing
+ ```
+ ## Misc
+ 
+ ```
+ !say blabla : FalconBot will say "blabla"
+ 
+ !clear [number] : will clear the last [number] messages
+ 
+ !serverinfo : display informations about your server
+ 
+ !time : display the actual time
+ ```
