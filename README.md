@@ -1,5 +1,9 @@
 # FalconBot
+
+![FalconBot logo](https://github.com/Kalivins/FalconBot/blob/master/img/falconbot_logo.jpg)
+
 FalconBot is a Discord bot that allow you to make stream notifications (twitch API) on discord channels,
+
 There is also a **Music Module**, **Fortnite Tracker (WIP)** & **Custom Emotes (WIP)**
 
 # Get Started
