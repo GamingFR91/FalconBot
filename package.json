@@ -1,0 +1,27 @@
+{
+  "name": "falconbot",
+  "version": "1.0.0",
+  "description": "A private bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "discord.js-musicbot-addon": "^1.10.3-aplha",
+    "download-file": "^0.1.5",
+    "express": "^4.16.3",
+    "ffmpeg-binaries": "^3.2.2-3",
+    "forever-monitor": "^1.7.1",
+    "fortnite": "^3.0.0",
+    "ms": "^2.1.1",
+    "node-opus": "^0.2.7",
+    "npm": "^5.8.0",
+    "opusscript": "0.0.6",
+    "youtube-audio-stream": "^0.2.0",
+    "youtube-dl": "^1.12.2",
+    "ytdl-core": "^0.20.2"
+  }
+}
