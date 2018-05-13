@@ -71,11 +71,11 @@ Here the full list of the commands available in FalconBot:
 ```!degage streamername``` : delete a streamer from the list.
 
 ```!configure``` : Command that handle all the configuration for this module
- ```- !configure channel add ```: Add a text channel to the list of channel that FalconBot need to do streaming notifications,
- ```- !configure channel remove ```: Remove a text channel from the list of channel,
- ```- !configure prefix ? ```: Changing prefix to ! from ?
- ```- !configure role roleName ```: Role that can use the streaming module,
- ```- !configure list ```: List the actual configuration,
+-```!configure channel add ```: Add a text channel to the list of channel that FalconBot need to do streaming notifications,
+-```!configure channel remove ```: Remove a text channel from the list of channel,
+-```!configure prefix ? ```: Changing prefix to ! from ?
+-```!configure role roleName ```: Role that can use the streaming module,
+-```!configure list ```: List the actual configuration,
  
  ## Music Module
  
