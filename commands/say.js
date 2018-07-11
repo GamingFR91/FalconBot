@@ -2,12 +2,14 @@ const Discord = require("discord.js");
 
 module.exports.run = (bot, message) =>{
 
-if(message.content.substring(1, 4) == "say")
+    let messageArray = message.content.split(" ");
+    let cmd = messageArray[0];
+
+if(cmd == "!say")
     {
+        message.content.delete().catch();
         let botmessage = message.content.substring(5);
-        message.channel.send(botmessage, {
-            tts: true
-           });
+        message.channel.send(botmessage);
     }
 }
 
