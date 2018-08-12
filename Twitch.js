@@ -1,12 +1,12 @@
 "use strict"
 import core from './FalconBase'
-import util from './Utility'
+import https from "https"
+import discord from 'discord.js'
 
 // Twitch
-class Twitch extends core{
+class Twitch{
     constructor(){
         this.interval = 60 * 1000;
-        this.https = require("https");
         this.apiUrl = "https://api.twitch.tv/kraken";
         this.timeout = 2 * 60 * 1000;
     }
@@ -23,13 +23,13 @@ class Twitch extends core{
                 host: "api.twitch.tv",
                 path: apiPath,
                 headers: {
-                    "Client-ID": this.config.twitchClientID,
+                    "Client-ID": core.config.twitchClientID,
                     Accept: "application/vnd.twitchtv.v3+json"
                 }
             };
         }
         catch (err) {
-            util.print(err);
+            core.print(err);
             return;
         }
     
@@ -46,7 +46,7 @@ class Twitch extends core{
                     json = JSON.parse(body);
                 }
                 catch (err) {
-                    util.print(err);
+                    core.print(err);
                     return;
                 }
                 if (json.status == 404) {
@@ -57,7 +57,7 @@ class Twitch extends core{
             });
     
         }).on("error", (err) => {
-            util.print(err);
+            core.print(err);
         });
     }
     apiCallback(server, twitchChannel, res) {
@@ -65,7 +65,7 @@ class Twitch extends core{
             twitchChannel.timestamp + timeout <= Date.now()) {
             try {
                 var channels = [], defaultChannel;
-                var guild = this.bot.guilds.find("name", server.name);
+                var guild = core.bot.guilds.find("name", server.name);
     
     
                 if (server.discordChannels.length === 0) {
@@ -75,7 +75,7 @@ class Twitch extends core{
                         channels.push(guild.channels.find("name", server.discordChannels[i]));
                     }
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new discord.RichEmbed()
                     .setColor("#9689b9")
                     .setTitle(res.stream.channel.display_name.replace(/_/g, "\\_"))
                     .setURL(res.stream.channel.url)
@@ -90,7 +90,7 @@ class Twitch extends core{
                     for (let i = 0; i < channels.length; i++) {
                         channels[i].send('@everyone Olala le fameux ' + res.stream.channel.display_name.replace(/_/g, "\\_") + ' est actuellement en ligne sur le jeu ' + res.stream.game + ' \n Rejoignez le !').then(
                             channels[i].send(embed)).then(
-                            util.print("Sent embed to channel '" + channels[i].name +
+                            core.print("Sent embed to channel '" + channels[i].name +
                                 "'.")
                             );
                     }
@@ -99,7 +99,7 @@ class Twitch extends core{
                 }
             }
             catch (err) {
-                util.print(err);
+                core.print(err);
             }
         } else if (res.stream === null) {
             twitchChannel.online = false;
@@ -107,10 +107,10 @@ class Twitch extends core{
     }
     
     tick() {
-        for (let i = 0; i < this.servers.length; i++) {
-            for (let j = 0; j < this.servers[i].twitchChannels.length; j++) {
-                for (let k = -1; k < this.servers[i].discordChannels.length; k++) {
-                    if (this.servers[i].twitchChannels[j]) {
+        for (let i = 0; i < core.servers.length; i++) {
+            for (let j = 0; j < core.servers[i].twitchChannels.length; j++) {
+                for (let k = -1; k < core.servers[i].discordChannels.length; k++) {
+                    if (core.servers[i].twitchChannels[j]) {
                         this.callApi(servers[i], servers[i].twitchChannels[j], apiCallback, true);
                     }
                 }
@@ -119,4 +119,5 @@ class Twitch extends core{
     }
 
 }
-module.exports = new Twitch;
+
+module.exports = new Twitch

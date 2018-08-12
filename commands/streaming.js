@@ -1,6 +1,6 @@
 "use strict"
 import core from '../FalconBase'
-import main from '../Main'
+import twitch from '../Twitch'
 const Discord = require("discord.js");
 
 module.exports.run = (bot, message) =>{
@@ -9,12 +9,12 @@ module.exports.run = (bot, message) =>{
     let index;
     var streamer;
         if (message.content.substring(1, 7) == "degage") {
-            if (main.permissionAdmin || main.permissionModerateurs || main.permissionBotmaster) {
+            if (core.permissionAdmin || core.permissionModerateurs || core.permissionBotmaster) {
                 streamer = message.content.slice(7).trim().split(' ').join('_');
-                    index = indexOfObjectByName(twitchChannels, streamer);
+                    index = core.indexOfObjectByName(core.twitchChannels, streamer);
                     if (index != -1) {
-                        twitchChannels.splice(index, 1);
-                        index = indexOfObjectByName(twitchChannels, streamer);
+                        core.twitchChannels.splice(index, 1);
+                        index = core.indexOfObjectByName(core.twitchChannels, streamer);
                         if (index == -1) {
                             message.reply(streamer + " a été supprimer de la liste.");
                         } else {
@@ -24,41 +24,41 @@ module.exports.run = (bot, message) =>{
                         message.reply(streamer + " n'est pas dans la liste.");
                     }
                 } else {
-                    message.reply("Il vous manque le role _" + server.role + "_.");
+                    message.reply("Il vous manque le role _" + core.server.role + "_.");
                 }
     
             } else if (message.content.substring(1, 7) == "ajoute") {
-                if (permissionAdmin || permissionModerateurs || permissionBotmaster) {
+                if (core.permissionAdmin || core.permissionModerateurs || core.permissionBotmaster) {
                     streamer = message.content.slice(7).trim().split(' ').join('_');
                     var channelObject = { name: streamer };
-                    index = indexOfObjectByName(twitchChannels, streamer);
-                    callApi(server, channelObject, (serv, chan, res) => {
+                    index = core.indexOfObjectByName(core.twitchChannels, streamer);
+                    twitch.callApi(core.server, channelObject, (serv, chan, res) => {
                         if (index != -1) {
                             message.reply(streamer + " est déjà dans la liste.");
                         } else if (res) {
-                            twitchChannels.push({
+                            core.twitchChannels.push({
                                 name: streamer, timestamp: 0,
                                 online: false
                             });
                             message.reply(streamer + " a bien été ajouté à la liste.");
-                            tick();
+                            core.tick();
                         } else {
                             message.reply(streamer + " n'existe pas dans le twitch game.");
                         }
                     }, false);
                 } else {
-                    message.reply("Il vous manque le rôle _" + server.role + "_.");
+                    message.reply("Il vous manque le rôle _" + core.server.role + "_.");
                 }
     
             } else if (message.content.substring(1, 6) == "liste") {
                 let msg = "\n";
-                for (let i = 0; i < twitchChannels.length; i++) {
+                for (let i = 0; i < core.twitchChannels.length; i++) {
                     var streamStatus;
-                    if (twitchChannels[i].online) {
+                    if (core.twitchChannels[i].online) {
                         msg += "**" + twitchChannels[i].name + " en ligne**\n";
                     } else {
                         streamStatus = "offline";
-                        msg += twitchChannels[i].name + " hors-ligne\n";
+                        msg += core.twitchChannels[i].name + " hors-ligne\n";
                     }
                 }
                 if (!msg) {
@@ -72,18 +72,18 @@ module.exports.run = (bot, message) =>{
                 if (message.member.displayName == "DF4" || message.member.displayName == "Nenu" || message.member.displayName == "Az0Te" || message.member.displayName == "CrazyPass" || message.member.displayName == "Spidey") {
                     if (message.content.substring(11, 15) == "list") {
                         msg += "```\n" +
-                            "prefix    " + server.prefix + "\n" +
-                            "role      " + server.role + "\n";
+                            "prefix    " + core.server.prefix + "\n" +
+                            "role      " + core.server.role + "\n";
     
-                        msg += "channels  " + server.discordChannels[0];
-                        if (server.discordChannels.length > 1) {
+                        msg += "channels  " + core.server.discordChannels[0];
+                        if (core.server.discordChannels.length > 1) {
                             msg += ",";
                         }
                         msg += "\n";
     
-                        for (let i = 1; i < server.discordChannels.length; i++) {
-                            msg += "          " + server.discordChannels[i];
-                            if (i != server.discordChannels.length - 1) {
+                        for (let i = 1; i < core.server.discordChannels.length; i++) {
+                            msg += "          " + core.server.discordChannels[i];
+                            if (i != core.server.discordChannels.length - 1) {
                                 msg += ",";
                             }
                             msg += "\n";
@@ -94,20 +94,20 @@ module.exports.run = (bot, message) =>{
                         let newPrefix = message.content.substring(18, 19);
                         if (newPrefix.replace(/\s/g, '').length === 0) {
                             msg += "Spécifier un argument";
-                        } else if (newPrefix == server.prefix) {
-                            msg += "Le nouveau prefix est " + server.prefix;
+                        } else if (newPrefix == core.server.prefix) {
+                            msg += "Le nouveau prefix est " + core.server.prefix;
                         } else {
-                            server.lastPrefix = server.prefix;
-                            server.prefix = newPrefix;
-                            msg += "Le nouveau prefix est " + server.prefix;
+                            core.server.lastPrefix = core.server.prefix;
+                            core.server.prefix = newPrefix;
+                            msg += "Le nouveau prefix est " + core.server.prefix;
                         }
     
                     } else if (message.content.substring(11, 15) == "role") {
                         if (message.content.substring(16).replace(/\s/g, '').length === 0) {
                             msg += "Spécifier un argument";
                         } else {
-                            server.role = message.content.substring(16);
-                            msg += "Mon role est maintenant le suivant: " + server.role;
+                            core.server.role = message.content.substring(16);
+                            msg += "Mon role est coretenant le suivant: " + core.server.role;
                         }
     
                     } else if (message.content.substring(11, 18) == "channel") {
@@ -116,20 +116,20 @@ module.exports.run = (bot, message) =>{
                             if (channel.replace(/\s/g, '').length === 0) {
                                 msg += "Spécifier un argument";
                             } else if (message.guild.channels.exists("name", channel)) {
-                                server.discordChannels.push(channel);
+                                core.server.discordChannels.push(channel);
                                 msg += "Je ferais les notifications de stream sur " + channel;
                             } else {
                                 msg += channel + " n'existe pas dans ce serveur.";
                             }
     
                         } else if (message.content.substring(19, 25) == "remove") {
-                            for (let i = server.discordChannels.length; i >= 0; i--) {
+                            for (let i = core.server.discordChannels.length; i >= 0; i--) {
                                 let channel = message.content.substring(26);
                                 if (channel.replace(/\s/g, '').length === 0) {
                                     msg = "Spécifier un argument";
                                     break;
-                                } else if (server.discordChannels[i] == channel) {
-                                    server.discordChannels.splice(i, 1);
+                                } else if (core.server.discordChannels[i] == channel) {
+                                    core.server.discordChannels.splice(i, 1);
                                     msg = "le channel " + channel + " a été supprimer de la liste des channels de notification de stream.";
                                     break;
                                 } else {
@@ -137,13 +137,13 @@ module.exports.run = (bot, message) =>{
                                 }
                             }
                         } else {
-                            msg = "Spécifier un argument (exemple " + server.prefix + "configure channel add/remove)";
+                            msg = "Spécifier un argument (exemple " + core.server.prefix + "configure channel add/remove)";
                         }
     
                     } else {
                         msg += "```\n" +
-                            "Usage: " + server.prefix + "configure OPTION [SUBOPTION] VALUE\n" +
-                            "Exemple: " + server.prefix + "configure channel add\n" +
+                            "Usage: " + core.server.prefix + "configure OPTION [SUBOPTION] VALUE\n" +
+                            "Exemple: " + core.server.prefix + "configure channel add\n" +
                             "\nOptions:\n" +
                             "  list        Liste la configuration actuelle\n" +
                             "  prefix      Changer le prefix du bot\n" +
