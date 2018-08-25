@@ -1,4 +1,4 @@
-import discord from 'discord.js'
+const discord = 'discord.js';
 
 module.exports.run = (bot, message) =>{
 

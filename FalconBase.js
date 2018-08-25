@@ -1,17 +1,18 @@
 "use strict"
 import twitch from './Twitch'
+import fs from "fs"
+import config from './botconfig.json'
 import discord from 'discord.js'
 import musicAddon from 'discord.js-musicbot-addon'
 
 class FalconBase{
     constructor(){
+        this.servers = [{}];
+        this.twitchChannels = [{}];
         this.bot = new discord.Client();
         this.channelPath = __dirname + "/channels.json";
-        this.config = require('./botconfig.json');
-        this.fs = require("fs");
         this.bot.commands = new discord.Collection();
 
-        this.twitchChannels;
         this.permissionAdmin;
         this.permissionModerateurs;
         this.permissionBotmaster;
@@ -19,25 +20,24 @@ class FalconBase{
     }
 
     registerGuilds(){
-        var servers = [];
         this.bot.on("message", (message) => {
             if (!message.guild) {
                 return;
         
             } else {
-                let index = this.indexOfObjectByName(servers, message.guild.name);
+                let index = this.indexOfObjectByName(this.servers, message.guild.name);
                 if (index == -1) {
-                    servers.push({
+                    this.servers.push({
                         name: message.guild.name,
                         lastPrefix: "!", prefix: "!",
                         role: "MODERATEURS", discordChannels: [],
                         twitchChannels: []
                     });
-                    index = servers.length - 1;
+                    index = this.servers.length - 1;
                 }
         
-                this.server = servers[index];
-                var twitchChannels = servers[index].twitchChannels;
+                this.server = this.servers[index];
+                this.twitchChannels = this.servers[index].twitchChannels;
             }
             if (message.content[0] == this.server.prefix) {
                 try {
@@ -62,7 +62,7 @@ class FalconBase{
     
     launchHandlers(){
         // Commands Handler
-        this.fs.readdir("./commands/", (err, files) => {
+        fs.readdir("./commands/", (err, files) => {
             if (err) this.print(err);
 
             let jsfile = files.filter(f => f.split(".").pop() === "js")
@@ -79,7 +79,7 @@ class FalconBase{
         });
 
         // Emotes Handler
-        this.fs.readdir("./commands/emotes/", (err, files) => {
+        fs.readdir("./commands/emotes/", (err, files) => {
             if (err) this.print(err);
 
             let jsfile = files.filter(f => f.split(".").pop() === "js")
@@ -94,14 +94,15 @@ class FalconBase{
                 this.bot.commands.set(props.help.name, props);
             });
         });
+        // Streaming Handlers
+        setInterval(this.tick, twitch.interval);
     }
     launchBot(){
-        this.bot.login(this.config.token).then(() => {
+        this.bot.login(config.token).then(() => {
                 this.print("FalconBot is running");
-                var file = this.fs.readFileSync(this.channelPath, { encoding: "utf-8" });
+                var file = fs.readFileSync(this.channelPath, { encoding: "utf-8" });
                 this.servers = JSON.parse(file);
-                twitch.tick();
-                setInterval(twitch.tick, twitch.interval);
+                this.tick();
         });
     }
     launchMusic(){
@@ -116,6 +117,18 @@ class FalconBase{
                 youtubeKey: 'AIzaSyCPdarptD2gazE4oA9ym-jzkJRPoY8pZis'
               });
         });
+    }
+
+    tick() {
+        for (let i = 0; i < this.servers.length; i++) {
+            for (let j = 0; j < this.servers[i].twitchChannels.length; j++) {
+                for (let k = -1; k < this.servers[i].discordChannels.length; k++) {
+                    if (this.servers[i].twitchChannels[j]) {
+                        twitch.callApi(this.servers[i], this.servers[i].twitchChannels[j], twitch.apiCallback, true, this.bot);
+                    }
+                }
+            }
+        }
     }
 
     // Utility Things
@@ -145,25 +158,6 @@ class FalconBase{
             }
         }
         return -1;
-    }
-    // Preventing from fatal errors, saving channels information and exit
-    exitHandler(opt, err) {
-        if (err) {
-            print(err);
-        }
-        if (opt.save) {
-            print("Saving channels to " + channelPath + " before exiting");
-            print(JSON.stringify(servers));
-            fs.writeFileSync(channelPath, JSON.stringify(servers, null, 4));
-            print("Done");
-        }
-        if (opt.exit) {
-            process.exit();
-        }
-        process.on("exit", this.exitHandler.bind(null, { save: true }));
-        process.on("SIGINT", this.exitHandler.bind(null, { exit: true }));
-        process.on("SIGTERM", this.exitHandler.bind(null, { exit: true }));
-        process.on("uncaughtException", this.exitHandler.bind(null, { exit: true }));
     }
         
 }

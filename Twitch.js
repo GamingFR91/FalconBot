@@ -1,5 +1,5 @@
 "use strict"
-import core from './FalconBase'
+import config from './botconfig.json'
 import https from "https"
 import discord from 'discord.js'
 
@@ -8,9 +8,8 @@ class Twitch{
     constructor(){
         this.interval = 60 * 1000;
         this.apiUrl = "https://api.twitch.tv/kraken";
-        this.timeout = 2 * 60 * 1000;
     }
-    callApi(server, twitchChannel, callback, getStreamInfo) {
+    callApi(server, twitchChannel, callback, getStreamInfo, bot) {
         var opt;
         try {
             var apiPath;
@@ -23,13 +22,13 @@ class Twitch{
                 host: "api.twitch.tv",
                 path: apiPath,
                 headers: {
-                    "Client-ID": core.config.twitchClientID,
+                    "Client-ID": config.twitchClientID,
                     Accept: "application/vnd.twitchtv.v3+json"
                 }
             };
         }
         catch (err) {
-            core.print(err);
+            console.log(err);
             return;
         }
     
@@ -46,26 +45,27 @@ class Twitch{
                     json = JSON.parse(body);
                 }
                 catch (err) {
-                    core.print(err);
+                    console.log(err);
                     return;
                 }
                 if (json.status == 404) {
-                    callback(server, undefined, undefined);
+                    callback(server, undefined, undefined, bot);
                 } else {
-                    callback(server, twitchChannel, json);
+                    callback(server, twitchChannel, json, bot);
                 }
             });
     
         }).on("error", (err) => {
-            core.print(err);
+            console.log(err);
         });
     }
-    apiCallback(server, twitchChannel, res) {
+    apiCallback(server, twitchChannel, res, bot) {
+        var timeout = 2 * 60 * 1000;
         if (res && !twitchChannel.online && res.stream &&
             twitchChannel.timestamp + timeout <= Date.now()) {
             try {
                 var channels = [], defaultChannel;
-                var guild = core.bot.guilds.find("name", server.name);
+                var guild = bot.guilds.find("name", server.name);
     
     
                 if (server.discordChannels.length === 0) {
@@ -90,7 +90,7 @@ class Twitch{
                     for (let i = 0; i < channels.length; i++) {
                         channels[i].send('@everyone Olala le fameux ' + res.stream.channel.display_name.replace(/_/g, "\\_") + ' est actuellement en ligne sur le jeu ' + res.stream.game + ' \n Rejoignez le !').then(
                             channels[i].send(embed)).then(
-                            core.print("Sent embed to channel '" + channels[i].name +
+                            console.log("Sent embed to channel '" + channels[i].name +
                                 "'.")
                             );
                     }
@@ -99,22 +99,10 @@ class Twitch{
                 }
             }
             catch (err) {
-                core.print(err);
+                console.log(err);
             }
         } else if (res.stream === null) {
             twitchChannel.online = false;
-        }
-    }
-    
-    tick() {
-        for (let i = 0; i < core.servers.length; i++) {
-            for (let j = 0; j < core.servers[i].twitchChannels.length; j++) {
-                for (let k = -1; k < core.servers[i].discordChannels.length; k++) {
-                    if (core.servers[i].twitchChannels[j]) {
-                        this.callApi(servers[i], servers[i].twitchChannels[j], apiCallback, true);
-                    }
-                }
-            }
         }
     }
 
