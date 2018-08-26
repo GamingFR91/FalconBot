@@ -3,17 +3,16 @@ import core from '../FalconBase'
 
 module.exports.run = (bot, message) =>{
 
-let index;
+let index,
+    twitchChannels = core.getTChannels();
 var streamer;
 if (message.content.substring(1, 6) == "liste") {
     let msg = "\n";
-    for (let i = 0; i < core.twitchChannels.length; i++) {
-        var streamStatus;
-        if (core.twitchChannels[i].online) {
-            msg += "**" + core.twitchChannels[i].name + " en ligne**\n";
+    for (let i = 0; i < twitchChannels.length; i++) {
+        if (twitchChannels[i].online) {
+            msg += "**" + twitchChannels[i].name + " en ligne**\n";
         } else {
-            streamStatus = "offline";
-            msg += core.twitchChannels[i].name + " hors-ligne\n";
+            msg += twitchChannels[i].name + " hors-ligne\n";
         }
     }
     if (!msg) {

@@ -1,21 +1,23 @@
 import discord from "discord.js"
 import core from '../FalconBase'
+import util from '../Utility'
 import twitch from '../Twitch'
 
 module.exports.run = (bot, message) =>{
 
-let index;
+let index,
+    twitchChannels = core.getTChannels();
 var streamer;
 if (message.content.substring(1, 7) == "ajoute") {
-    if (core.permissionAdmin || core.permissionModerateurs || core.permissionBotmaster) {
+    if (core.checkPermissions(message)) {
         streamer = message.content.slice(7).trim().split(' ').join('_');
         var channelObject = { name: streamer };
-        index = core.indexOfObjectByName(core.twitchChannels, streamer);
+        index = util.indexOfObjectByName(twitchChannels, streamer);
         twitch.callApi(core.server, channelObject, (serv, chan, res) => {
             if (index != -1) {
                 message.reply(streamer + " est déjà dans la liste.");
             } else if (res) {
-                core.twitchChannels.push({
+                core.setTChannels({
                     name: streamer, timestamp: 0,
                     online: false
                 });
@@ -26,7 +28,7 @@ if (message.content.substring(1, 7) == "ajoute") {
             }
         }, false);
     } else {
-        message.reply("Il vous manque le rôle _" + core.server.role + "_.");
+        message.reply("Ne me parle pas, créature inférieure");
     }
 
     }

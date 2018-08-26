@@ -1,15 +1,15 @@
 "use strict"
 import config from './botconfig.json'
+import core from './FalconBase'
 import https from "https"
 import discord from 'discord.js'
 
 // Twitch
-class Twitch{
-    constructor(){
-        this.interval = 60 * 1000;
-        this.apiUrl = "https://api.twitch.tv/kraken";
-    }
-    callApi(server, twitchChannel, callback, getStreamInfo, bot) {
+
+var interval = 2 * 60 * 1000;
+
+exports.interval = interval;
+module.exports.callApi = (server, twitchChannel, callback, getStreamInfo, bot) => {
         var opt;
         try {
             var apiPath;
@@ -28,7 +28,7 @@ class Twitch{
             };
         }
         catch (err) {
-            console.log(err);
+            core.print(err);
             return;
         }
     
@@ -58,11 +58,11 @@ class Twitch{
         }).on("error", (err) => {
             console.log(err);
         });
-    }
-    apiCallback(server, twitchChannel, res, bot) {
-        var timeout = 2 * 60 * 1000;
+}
+
+module.exports.apiCallback = (server, twitchChannel, res, bot) => {
         if (res && !twitchChannel.online && res.stream &&
-            twitchChannel.timestamp + timeout <= Date.now()) {
+            twitchChannel.timestamp + interval <= Date.now()) {
             try {
                 var channels = [], defaultChannel;
                 var guild = bot.guilds.find("name", server.name);
@@ -99,13 +99,9 @@ class Twitch{
                 }
             }
             catch (err) {
-                console.log(err);
+                core.print(err);
             }
         } else if (res.stream === null) {
             twitchChannel.online = false;
         }
-    }
-
 }
-
-module.exports = new Twitch

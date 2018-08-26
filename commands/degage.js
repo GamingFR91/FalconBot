@@ -1,17 +1,19 @@
 import discord from "discord.js"
 import core from '../FalconBase'
+import util from '../Utility'
 
 module.exports.run = (bot, message) =>{
 
-let index;
+let index,
+    twitchChannels = core.getTChannels();
 var streamer;
 if (message.content.substring(1, 7) == "degage") {
-    if (core.permissionAdmin || core.permissionModerateurs || core.permissionBotmaster) {
+    if (core.checkPermissions(message)) {
         streamer = message.content.slice(7).trim().split(' ').join('_');
-        index = core.indexOfObjectByName(core.twitchChannels, streamer);
+        index = util.indexOfObjectByName(twitchChannels, streamer);
         if (index != -1) {
-            core.twitchChannels.splice(index, 1);
-            index = core.indexOfObjectByName(core.twitchChannels, streamer);
+            twitchChannels.splice(index, 1);
+            index = util.indexOfObjectByName(twitchChannels, streamer);
             if (index == -1) {
                 message.reply(streamer + " a été supprimer de la liste.");
             } else {
@@ -21,7 +23,7 @@ if (message.content.substring(1, 7) == "degage") {
             message.reply(streamer + " n'est pas dans la liste.");
         }
         } else {
-            message.reply("Il vous manque le role _" + core.server.role + "_.");
+            message.reply("Ne me parle pas, créature inférieure");
         }
 }
 }
