@@ -52,10 +52,22 @@ module.exports.run = (bot, message) => {
 
       case "list":
         const emojiList = message.guild.emojis.map(e => e.toString()).join(" ");
-        const customEmoji = bot.commands.map(e => e.toString()).join(" ");
-
-        message.channel.send(emojiList + "\n " + customEmoji);
-        console.log(bot.commands.name.map(e => e.toString()).join(" "));
+        const emojiPath = './commands/emotes/';
+        var customEmoji = [];
+        fs.readdir(emojiPath, (err, files) => {
+          if (err) {
+            console.log(err)
+        }
+        let jsfile = files.filter(f => f.split(".").pop() === "js")
+          jsfile.forEach(file => {
+            let f = file.split('.');
+            let name = f[0];
+            customEmoji.push('!'+name);
+          });
+        });
+        var emoji = customEmoji.join(' ');
+        
+        message.channel.send(emojiList + "\n " + emoji);
 
         break;
     }
@@ -63,5 +75,9 @@ module.exports.run = (bot, message) => {
 };
 
 module.exports.help = {
-  name: "emotes"
+  name: "emotes",
+  commande: "!emotes {create|remove|list}",
+  level: "Public",
+  description: "Permet de créer/supprimer ou lister les emotes disponibles sur le serveur"
+
 };

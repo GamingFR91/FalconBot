@@ -13,5 +13,8 @@ if(message.content.substring(1, 6) == "clear")
 }
 
 module.exports.help = {
-    name: "clear"
+    name: "clear",
+    commande: "!clear {number}",
+    level: "Admin",
+    description: "Clear le nombre de messages indiqué"
 }

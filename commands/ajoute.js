@@ -34,5 +34,8 @@ if (message.content.substring(1, 7) == "ajoute") {
     }
 }
 module.exports.help = {
-    name: "ajoute"
+    name: "ajoute",
+    commande: "!ajoute {name}",
+    level: "Admin",
+    description: "Rajoute un streamer à la liste des streamers à notifier sur le serveur"
 }

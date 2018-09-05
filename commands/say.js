@@ -9,5 +9,8 @@ module.exports.run = (bot, message) =>{
 }
 
 module.exports.help = {
-    name: "say"
+    name: "say",
+    commande: "!say {words}",
+    level: "Public",
+    description: "Le bot répète ce que vous avez dit (**A Corriger**)"
 }

@@ -9,5 +9,8 @@ if(message.content.substring(1, 4) == "ban")
 }
 
 module.exports.help = {
-    name: "ban"
+    name: "ban",
+    commande: "!ban {name}",
+    level: "Public",
+    description: "Ban Suly ce gros pd"
 }

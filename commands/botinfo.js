@@ -15,5 +15,8 @@ module.exports.run = (bot, message, args) => {
 }
 
 module.exports.help = {
-  name:"botinfo"
+  name:"botinfo",
+  commande: "!botinfo",
+  level: "Public",
+  description: "Affiche des informations sur le bot"
 }

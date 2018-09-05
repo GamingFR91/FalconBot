@@ -28,5 +28,8 @@ if (message.content.substring(1, 7) == "degage") {
 }
 }
 module.exports.help = {
-    name: "degage"
+    name: "degage",
+    commande: "!degage {name}",
+    level: "Admin",
+    description: "Supprime un streamer de la liste des streamers à notifier"
 }

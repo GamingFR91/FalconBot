@@ -99,5 +99,8 @@ if (message.content.substring(1, 10) == "configure") {
 }
 }
 module.exports.help = {
-    name: "configure"
+    name: "configure",
+    commande: "!configure {option} {suboption} {value}",
+    level: "Admin",
+    description: "Permet de configurer principalement le module streaming (plus d'infos en tapant !configure)"
 }

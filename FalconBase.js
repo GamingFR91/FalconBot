@@ -110,6 +110,25 @@ module.exports.checkPermissions = (message) =>{
         return true;
     }
 }
+module.exports.giveHelp = (message) =>{
+    var commands, commandes, levels, descriptions;
+    commands = bot.commands.array();
+    commands.forEach((value, index) =>{
+        if(value.help.commande != undefined || value.help.commande != ''){
+            commandes = value.help.commande;
+        }
+        if(value.help.level != undefined || value.help.level != ''){
+            levels = value.help.level;
+        }
+        if(value.help.description != undefined || value.help.description != ''){
+            descriptions = value.help.description;
+            console.log(descriptions);
+        }
+        
+    });
+    
+    
+}
 module.exports.registerGuilds = () => {
         bot.on("message", (message) => {
             if (!message.guild) {

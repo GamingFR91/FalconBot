@@ -16,5 +16,8 @@ module.exports.run = (bot, message) =>{
 }
 
 module.exports.help = {
-    name: "serverinfo"
+    name: "serverinfo",
+    commande: "!serverinfo",
+    level: "Public",
+    description: "Affiche les informations du serveur"
 }

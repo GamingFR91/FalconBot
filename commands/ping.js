@@ -14,5 +14,8 @@ if(message.content.substring(1, 5) == "ping")
 }
 
 module.exports.help = {
-    name: "ping"
+    name: "ping",
+    commande: "!ping",
+    level: "Public",
+    description: "Vérifie le ping entre le bot et le serveur (**DEPECRATED**)"
 }

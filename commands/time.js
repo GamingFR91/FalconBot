@@ -12,5 +12,8 @@ if(message.content.substring(1, 5) == "time")
 }
 
 module.exports.help = {
-    name: "time"
+    name: "time",
+    commande: "!time",
+    level: "Public",
+    description: "Affiche l'heure actuelle"
 }

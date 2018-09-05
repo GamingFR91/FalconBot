@@ -18,11 +18,14 @@ if (message.content.substring(1, 6) == "liste") {
     if (!msg) {
         message.reply("La liste est vide, pd.");
     } else {
-        message.reply(msg.replace(/_/g, "\\_"));
+        message.channel.send(msg.replace(/_/g, "\\_"));
     }
 
 }
 }
 module.exports.help = {
-    name: "liste"
+    name: "liste",
+    commande: "!liste",
+    level: "Public",
+    description: "Liste tout les streamers à notifier sur le serveur"
 }
