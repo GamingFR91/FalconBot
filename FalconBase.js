@@ -163,38 +163,32 @@ module.exports.registerGuilds = () => {
 module.exports.launchHandlers = () => {
         // Commands Handler
         bot.commands = new discord.Collection();
-        fs.readdir("./commands/", (err, files) => {
-            if (err) util.print(err);
-
-            let jsfile = files.filter(f => f.split(".").pop() === "js")
-            if (jsfile.length <= 0) {
-                util.print("Aucune commande enregistrer.");
-                return;
-            }
-
-            jsfile.forEach((f, i) => {
-                let props = require(`./commands/` + f);
-                util.print(f + ' loaded !');
-                bot.commands.set(props.help.name, props);
+        var walkSync = function(dir, filelist) {
+            var files = fs.readdirSync(dir);
+            filelist = filelist || [];
+            files.forEach(function(file) {
+                if (fs.statSync(dir + file).isDirectory()) {
+                    filelist = walkSync(dir + file + '/', filelist);
+                }
+                else {
+                    filelist.push(dir + file);
+                }
             });
-        });
+            return filelist;
+          };
+    var files = walkSync('./commands/');
+    let jsfiles = files.filter(f => f.split(".").pop() === "js")
+    if (jsfiles.length <= 0) {
+        util.print("Aucune commandes enregistrer.");
+        return;
+    }
 
-        // Emotes Handler
-        fs.readdir("./commands/emotes/", (err, files) => {
-            if (err) util.print(err);
-
-            let jsfile = files.filter(f => f.split(".").pop() === "js")
-            if (jsfile.length <= 0) {
-                util.print("Aucun emotes enregistrer.");
-                return;
-            }
-
-            jsfile.forEach((f, i) => {
-                let props = require(`./commands/emotes/` + f);
-                util.print(f + ' loaded !');
-                bot.commands.set(props.help.name, props);
-            });
-        });
+    jsfiles.forEach((f, i) => {
+        let props = require(f);
+        let moduleName = f.split('/');
+        util.print(moduleName[3] + ' loaded !');
+        bot.commands.set(props.help.name, props);
+    });
 }
 module.exports.launchBot = () => {
         bot.login(config.token).then(() => {

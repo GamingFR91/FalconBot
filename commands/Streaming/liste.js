@@ -1,5 +1,5 @@
 import discord from "discord.js"
-import core from '../FalconBase'
+import core from '../../FalconBase'
 
 module.exports.run = (bot, message) =>{
 

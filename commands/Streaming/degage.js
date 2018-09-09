@@ -1,6 +1,6 @@
 import discord from "discord.js"
-import core from '../FalconBase'
-import util from '../Utility'
+import core from '../../FalconBase'
+import util from '../../Utility'
 
 module.exports.run = (bot, message) =>{
 

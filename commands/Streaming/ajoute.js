@@ -1,7 +1,7 @@
 import discord from "discord.js"
-import core from '../FalconBase'
-import util from '../Utility'
-import twitch from '../Twitch'
+import core from '../../FalconBase'
+import util from '../../Utility'
+import twitch from '../../Twitch'
 
 module.exports.run = (bot, message) =>{
 
