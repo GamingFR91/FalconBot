@@ -22,7 +22,7 @@ module.exports.run = (bot, message) => {
             if(!fileUrl){ message.channel.send("Veuillez rajouter votre emote avec votre message !"); return;}
 
             let options = {
-                directory: "./emotes/",
+                directory: "../../emotes",
                 filename: name+".png"
             }
              
@@ -31,8 +31,8 @@ module.exports.run = (bot, message) => {
                 console.log("Image de l'emote "+name+" a été téléchargé !");
             });
 
-            fs.writeFile('./commands/emotes/'+name+'.js', "const Discord = require('discord.js'); module.exports.run = (bot, message) => { if (message.content.substring(1, "+commandLength+") == '"+name+"') {"+
-                "message.delete().catch(); let emote = './emotes/"+name+".png'; message.channel.send(message.member, { files: [emote] }); } }; module.exports.help = { name: '"+name+"'};", { mode: 777 }, err => {
+            fs.writeFile(+name+'.js', "const Discord = require('discord.js'); module.exports.run = (bot, message) => { if (message.content.substring(1, "+commandLength+") == '"+name+"') {"+
+                "message.delete().catch(); let emote = '../../emotes/"+name+".png'; message.channel.send(message.member, { files: [emote] }); } }; module.exports.help = { name: '"+name+"'};", { mode: 777 }, err => {
                 if (err) throw err;
                 console.log('Saved '+name+' to the emotes list !');
                 message.channel.send("L'emote **"+name+"** a bien été ajouté à la liste !");

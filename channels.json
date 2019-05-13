@@ -1,0 +1,122 @@
+[
+    {
+        "name": "🐦La Légion du Faucon Mortel 🐦 🇫🇷",
+        "lastPrefix": "!",
+        "prefix": "!",
+        "role": "MODERATEURS",
+        "discordChannels": [
+            "annonces_stream"
+        ],
+        "twitchChannels": [
+            {
+                "name": "az0te",
+                "timestamp": 1537707706633,
+                "online": false
+            },
+            {
+                "name": "nenu",
+                "timestamp": 1537805401638,
+                "online": false
+            },
+            {
+                "name": "ariu3",
+                "timestamp": 1537720548826,
+                "online": false
+            },
+            {
+                "name": "deathf4lcon",
+                "timestamp": 1537706146354,
+                "online": false
+            },
+            {
+                "name": "Onixir",
+                "timestamp": 1537827125166,
+                "online": false
+            },
+            {
+                "name": "creediii",
+                "timestamp": 1537011708185,
+                "online": false
+            },
+            {
+                "name": "pandazerr",
+                "timestamp": 1537791119276,
+                "online": false
+            },
+            {
+                "name": "rorrosama",
+                "timestamp": 0,
+                "online": false
+            }
+        ]
+    },
+    {
+        "name": "servertest",
+        "lastPrefix": "!",
+        "prefix": "!",
+        "role": "MODERATEURS",
+        "discordChannels": [
+            "général"
+        ],
+        "twitchChannels": []
+    },
+    {
+        "name": "Zozote",
+        "lastPrefix": "!",
+        "prefix": "!",
+        "role": "MODERATEURS",
+        "discordChannels": [],
+        "twitchChannels": []
+    },
+    {
+        "name": "🐦La Légion du Faucon Mortel🐦 🇫🇷",
+        "lastPrefix": "!",
+        "prefix": "!",
+        "role": "MODERATEURS",
+        "discordChannels": [
+            "annonces_stream"
+        ],
+        "twitchChannels": [
+            {
+                "name": "zozozote",
+                "timestamp": 1537707706633,
+                "online": false
+            },
+            {
+                "name": "nenu",
+                "timestamp": 1537805401638,
+                "online": false
+            },
+            {
+                "name": "ariu3",
+                "timestamp": 1537720548826,
+                "online": false
+            },
+            {
+                "name": "deathf4lcon",
+                "timestamp": 1537706146354,
+                "online": false
+            },
+            {
+                "name": "Onixir",
+                "timestamp": 1537827125166,
+                "online": false
+            },
+            {
+                "name": "creediii",
+                "timestamp": 1537011708185,
+                "online": false
+            },
+            {
+                "name": "pandazerr",
+                "timestamp": 1537791119276,
+                "online": false
+            },
+            {
+                "name": "rorrosama",
+                "timestamp": 0,
+                "online": false
+            }
+        ]
+    }
+]

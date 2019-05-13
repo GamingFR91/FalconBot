@@ -99,9 +99,9 @@ module.exports.setPermMaster = (m) =>{
 
 module.exports.checkPermissions = (message) =>{
     try {
-        permissionAdmin = message.member.roles.exists("name", "ADMIN");
-        permissionModerateurs = message.member.roles.exists("name", "MODERATEURS");
-        permissionBotmaster = message.member.roles.exists("name", "BOT MASTER");
+        permissionAdmin = message.member.roles.exists("name", "Le Roi Faucon");
+        permissionModerateurs = message.member.roles.exists("name", "Faucons de sécurité");
+        permissionBotmaster = message.member.roles.exists("name", "BOT_FAUCON");
     }
     catch (err) {
         util.print(server.role + " n'est pas un rôle sur ce serveur", err);
@@ -146,6 +146,8 @@ module.exports.registerGuilds = () => {
                     index = servers.length - 1;
                 }
                 
+                twitchEmotes(message);
+
                 server = servers[index];
                 twitchChannels = servers[index].twitchChannels;
             }
@@ -199,6 +201,7 @@ module.exports.launchBot = () => {
                     for (let j = 0; j < servers[i].twitchChannels.length; j++) {
                         for (let k = -1; k < servers[i].discordChannels.length; k++) {
                             if (servers[i].twitchChannels[j]) {
+                                console.log(servers);
                                 twitch.callApi(servers[i], servers[i].twitchChannels[j], twitch.apiCallback, true, bot);
                             }
                         }
@@ -215,7 +218,7 @@ module.exports.launchMusic = () => {
             const music = new musicAddon(Bot, {
                 prefix: "?",
                 maxQueueSize: "1000",
-                youtubeKey: 'YOUR_YOUTUBE_KEY'
+                youtubeKey: 'AIzaSyCPdarptD2gazE4oA9ym-jzkJRPoY8pZis'
               });
         });
 }
@@ -246,4 +249,43 @@ module.exports.exitHandler = (opt, err) => {
     if (opt.exit) {
         process.exit();
     }
+}
+
+let twitchEmotes = (message) => {
+
+    var emotes = ['batchest', 'supervinlin', 'bcwarrior', 'thetarfu', 'osfrog', 'mcat', 'mikehogu', 'cheffrank',
+    'ssssss', 'hotpokket', 'kapow', 'kreygasm', 'uwot', 'theringer', 'pogchamp', 'primeme', 'brokeback',
+    'seemsgood', 'dududu', 'pipehype', 'brainslug', 'kappapride', 'twitchvotes', 'mau5', 'kevinturtle',
+    'babyrage', 'poooound', 'entropywins', 'voteyea', 'gingerpower', 'keepo', 'datsheffy', 'elegiggle',
+    'heyguys', 'tehepelo', 'arsonnosexy', 'frankerz', 'ninjagrumpy', 'theilluminati', 'tbtacoprops',
+    'strawbeary', 'wholewheat', 'jebaited', 'tinyface', 'partytime', 'punoko', 'squid1', 'bigphish',
+    'argieb8', 'kappaclaus', 'coolcat', 'opieop', 'wtruck', 'joncarnage', 'inuyoface', 'grammarking',
+    'jkanstyle', 'tbtacobag', 'pjsugar', 'itsboshytime', 'carlsmile', 'permasmug', 'copythis', 'kappa',
+    'blargnaut', 'twitchraid', 'amptroppunch', 'youdontsay', 'squid3', 'kippa', 'kappu', 'squid2', 'squid4',
+    'punchtrees', 'dxcat', 'youwhy', 'futureman', 'mvgame', 'ralpherz', 'praiseit', 'twitchlit', 'peopleschamp',
+    'ritzmitz', 'daesuppy', 'hscheers', 'anele', 'thething', 'rlytho', 'notatk', 'ohmydog', 'vohiyo', 'hassanchop',
+    'coolstorybob', 'smorc', 'optimizeprime', 'koncha', 'thunbeast', 'kappaross', 'unsane', 'dbstyle', 'stinkycheese',
+    'onehand', 'toospicy', 'hsvoid', 'freakinstinkin', 'mrdestructoid', 'picomause', 'notlikethis', 'failfish',
+    'giveplz', 'funrun', 'rulefive', 'begwan', 'tbangel', 'sobayed', 'blessrng', 'residentsleeper', 'darkmode',
+    'panicbasket', 'dogface', 'tf2john', 'sabaping', '4head', 'shadylulu', 'prchase', 'pjsalt', 'biblethump',
+    'dendiface', 'twitchrpg', 'unclenox', 'imglitch', 'takenrg', 'asianglow', 'wutface', 'corgiderp', 'tearglove',
+    'shazbotstix', 'smoocherz', 'hassaanchop', 'bleedpurple', 'lul', 'tpcrunchyroll', 'humblelife', 'nomnom',
+    'twitchunity', 'budstar', 'vaultboy', 'powerupl', 'trihard', 'thankegg', 'arigatonas', 'stonelightning',
+    'tbcrunchy', 'quaddamage', 'pmstwin', 'ripepperonis', 'votenay', 'bloodtrail', 'bjblazkowicz', 'ossloth',
+    'morphintime', 'powerupr', 'pastathat', 'curselit', 'fungineer', 'minglee', 'oskomodo', 'cmonbruh',
+    'doritoschip', 'crreamawk'];
+
+    emotes.forEach(e =>{
+        if(message.content.substring(1, e.length + 1) === e)
+            {
+                message.delete().catch();
+                console.log(e);
+                let emote = './emotes/'+e+'.png';
+                message.channel.send('', {
+                    files: [
+                        emote
+                    ]
+                });
+            }
+    });
 }

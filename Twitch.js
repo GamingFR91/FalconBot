@@ -28,7 +28,7 @@ module.exports.callApi = (server, twitchChannel, callback, getStreamInfo, bot) =
             };
         }
         catch (err) {
-            core.print(err);
+            console.log(err);
             return;
         }
     
@@ -99,7 +99,7 @@ module.exports.apiCallback = (server, twitchChannel, res, bot) => {
                 }
             }
             catch (err) {
-                core.print(err);
+                console.log(err);
             }
         } else if (res.stream === null) {
             twitchChannel.online = false;

@@ -17,11 +17,12 @@
     "forever-monitor": "^1.7.1",
     "fortnite": "^3.0.0",
     "ms": "^2.1.1",
-    "mysql": "^2.16.0",
     "node-opus": "^0.2.7",
     "npm": "^5.8.0",
     "opusscript": "0.0.6",
+    "pornsearch": "^2.4.2",
     "random-puppy": "^1.1.0",
+    "snekfetch": "^4.0.4",
     "youtube-audio-stream": "^0.2.0",
     "youtube-dl": "^1.12.2",
     "ytdl-core": "^0.20.2"

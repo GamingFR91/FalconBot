@@ -1,0 +1,1 @@
+const Discord = require('discord.js'); module.exports.run = (bot, message) => { if (message.content.substring(1, 3) == 'ke') {message.delete().catch(); let emote = './emotes/ke.png'; message.channel.send(message.member, { files: [emote] }); } }; module.exports.help = { name: 'ke'};
